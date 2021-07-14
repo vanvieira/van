@@ -1,37 +1,98 @@
-## Welcome to GitHub Pages
+<! DOCTYPE html >
+< html  lang = " en " >
+< cabeça >
+    < meta  charset = " UTF-8 " >
+    < meta  http-equiv = " X-UA-Compatible " content = " IE = edge " >
+    < meta  name = " viewport " content = " width = device-width, initial-scale = 1.0 " >
+    < title > Bem Vindo </ title >
+    < link  rel = " stylesheet " href = " https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css " Integrity = " sha384-B0vP5xmATw1 + K9KRQjQERJvTumQW0nPEUqvOUF6Lp + JQqqvF6Lp3Jouq2FUF6Lp / ZnPqUq2F6Lp / ZnPqUq2F6lC " crossorigin =" anônimo " >
+</ head >
+<? php
 
-You can use the [editor on GitHub](https://github.com/vanvieira/van/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
+function  _group_by ( $ array , $ key ) {
+    $ return = array ();
+    foreach ( $ array  as  $ val ) {
+        $ return [ $ val -> $ key ] [] = $ val ;
+    }
+    return  $ return ;
+}
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+$ url = "https://thiago.app/api/posts.php" ;
+ 
+$ ch = curl_init ( $ url );
+curl_setopt ( $ ch , CURLOPT_RETURNTRANSFER , true );
+curl_setopt ( $ ch , CURLOPT_SSL_VERIFYPEER , false );
+$ produtos = json_decode ( curl_exec ( $ ch ));
+$ produtosPorCategorias = _grupo_by ( $ produtos , 'categoria' );
 
-### Markdown
+?>
+< body  style = " background: rgb (2,0,36);
+fundo: gradiente linear (180deg, rgba (2,0,36,1) 0%, rgba (9,9,121,1) 35%, rgba (0,212,255,1) 100%); " >
+    <? php
+        foreach ( $ produtosPorCategorias  as  $ key => $ value ) {
+            ?>
+            < Br >
+            < h2  style = " text-align: center; color: yellow; " >
+            <? php
+                print_r ( $ key );
+            ?>
+            </ h2 >
+            < section  class = " container " >
+        < div  class = " bg-dark p-5 my-5 " style = " border-radius: 10px; box-shadow: 1px 1px 10px black " >
+            < div  id = " carouselExampleIndicators_ <? =  $ key  ?> " class = " carrossel slide " data-ride = " carrossel " >
+                < ol  class = " indicadores de carrossel pt-5 " >
+                    <? php 
+                        $ totalIndicadores = count ( $ value ) / 3 ;                        
+                        para ( $ i = 0 ; $ i < $ totalIndicadores ; $ i ++) {
+                    ?>
+                    < li  data-target = " #carouselExampleIndicators_ <? =  $ key  ?> " data-slide-to = " <? =  $ i  ?> " class = " <? php  if ( $ i == 0 ) { echo  'ativo ' ;} ?> " > </ li >
+                  <? php } ?>
+                </ ol >
+                < div  class = " carousel-inner " >
+                    <? php                        
+                        para ( $ i = 0 ; $ i < contagem ( $ valor );) { ?>
+                            < div  class = " carrossel-item <? php  if ( $ i == 0 ) { echo  'ativo' ;} ?> " >
+                                < div  class = " row " >
+                                    <? php for ( $ j = 0 ; $ j < 3   && $ i < count ( $ value ); $ j ++) { ?>
+                                        < div  class = " col-12 col-md-4 my-5 " >
+                                        < div  class = " card " style = " largura: 100%; altura: 100%; " >
+                                            < img  src = " <? =  $ value [ $ i ] -> imagem  ?> "
+                                                classe = " card-img-top " alt = " ... " >
+                                            < div  class = " card-body " >
+                                                < p  class = " card-text " > <? =  $ value [ $ i ] -> categoria  ?> </ p >
+                                                < p  class = " card-text " > <? =  $ value [ $ i ] -> título  ?> </ p >
+                                                < p  class = " card-text " style = " text-align: justify; " > <? =  $ value [ $ i ] -> corpo  ?> </ p > 
+                                            </ div >
+                                        </ div >
+                                    </ div >
+                                    <? php  $ i ++; } ?>
+                                </ div >
+                            </ div >
+                        
+                        <? php 
+                        } 
+                        ?>
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+                </ div >   
+                < A  class = " carrossel-control-prev " href =" #carouselExampleIndicators_ <? =  $ Chave  ?> "   Papel =" botão " de dados-slide =" prev " >
+                < span  class = " carousel-control-prev-icon " aria-hidden = " true " > </ span >
+                < span  class = " sr-only " > Anterior </ span >
+                </ a >
+                < A  class = " carrossel de controle de próxima " href =" #carouselExampleIndicators_ <? =  $ Chave  ?> " Papel =" botão " de dados-slide =" próxima " >
+                    < span  class = " carousel-control-next-icon " aria-hidden = " true " > </ span >
+                    < span  class = " sr-only " > Próximo </ span >
+                </ a >             
+            </ div >     
+        </ div >
+    </ seção >
+    <? php
+        }
 
-```markdown
-Syntax highlighted code block
+    ?>
 
-# Header 1
-## Header 2
-### Header 3
 
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/vanvieira/van/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+< Roteiro  src = " https://code.jquery.com/jquery-3.5.1.slim.min.js " integridade =" SHA384-DfXdz2htPH0lsSSs5nCTpuj / zy4C + OGpamoFVy38MVBnE + IbbVYUew + OrCXaRkfj " crossorigin =" anonymous " > </ script >
+< Roteiro  src =" https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js " integridade =" sha384-9 / reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU + 6BZp6G7niu735Sk7lN " crossorigin =" anonymous " > </ script >
+< Roteiro  src =" https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js " integridade =" sha384- + YQ4JLhjyBLPDQt // I + STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF " crossorigin =" anonymous " > </ script >
+</ body >
+</ html >
